@@ -1,58 +1,51 @@
 <!doctype html>
-<html xmlns:th="http://www.thymeleaf.org"
-	  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
+    crossorigin="anonymous">
+<title>管理者画面</title>
+<style>
+body {
+	color: #F7F7F7;
+	font-family: '游ゴシック体';
+	background-color: #F06060;
+}
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-    <title>管理者画面</title>
-    <style>
-    	body{
-    		 color:#F7F7F7;
-    		 font-family:'游ゴシック体';
-    		 background-color:#F06060;}
-    	ul{
-		   list-style:none;
-		   color:#696969}
-    </style>
-  </head>
-  <body>
-	<div class = "container-fluid" style = "background-color:#F06060;">
-		<a th:href="@{/logout}" class="btn btn-outline-light mt-3">ログアウト</a>
-		<h1 class="mb-4" align="center">「　管理者画面　」</h1>
-		<div class = "row">
-			<div class = "col-4" style = "background-color:#F06060;">
-				<!-- 実際に投稿する内容を入力します -->
-				<form th:action="@{/adminisratorAdd}" th:Object="${talk}" method="post" class="p-4" style="background-color:#F7F7F7; color:#696969;">
-					<h3 class="mb-3">投稿する</h3>
-					<input type="radio" name="name" value="管理者"  checked>管理者<br/>
-					<!-- autofocusを入れることで最初からテキストボックスの中にカーソルが出るようになる -->
-					<textarea th:field="*{comment}" placeholder="管理者からのお知らせ" class="my-2" autofocus></textarea>
-					<br>
-					<input type="submit" class="btn btn-outline-dark mt-3" style="color:#696969;" value="そうしん"/>
-				</form>
-			</div>
-			<!-- 投稿内容一覧 -->
-			<div class= "col-8" style="background-color:#F7F7F7; color:#696969;">
-				<h3 class="my-4">タイムライン</h3>
-				<div th:if="${talks.size() == 0}">
-					投稿されたhometeはありません
-				</div>
-				<ul th:each="talk:${talks}" th:inline="text">
-				<li>[[${talk.nowdate}]].　<a th:href="@{/adminisratorDelete?(id=*{talk.id})}" class="btn btn-outline-dark mt-3">削除</a></li>
-				<li>[[${talk.name}]]</li>
-				<li>[[${talk.comment}]]</li>
-				</ul>
-			</div>
-		</div>
-	</div>
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+ul {
+	list-style: none;
+	color: #696969
+}
+</style>
+</head>
+<body>
+    <div class="container-fluid" style="background-color: #F06060;">
+        <a th:href="@{/logout}" class="btn btn-outline-light mt-3">ログアウト</a>
+        <h1 class="mb-4" align="center">「 管理者画面 」</h1>
+        <div class="row">
+            <div class="col-4" style="background-color: #F06060;">
+                <form th:action="@{/adminisratorAdd}" th:Object="${talk}" method="post" class="p-4" style="background-color: #F7F7F7; color: #696969;">
+                    <h3 class="mb-3">投稿する</h3>
+                    <input type="radio" name="name" value="管理者" checked>管理者<br />
+                    <textarea th:field="*{comment}" placeholder="管理者からのお知らせ" class="my-2" autofocus></textarea>
+                    <br>
+                    <input type="submit" class="btn btn-outline-dark mt-3" style="color: #696969;" value="そうしん" />
+                </form>
+            </div>
+            <div class="col-8" style="background-color: #F7F7F7; color: #696969;">
+                <h3 class="my-4">タイムライン</h3>
+                <div th:if="${talks.size() == 0}">投稿されたhometeはありません</div>
+                <ul th:each="talk:${talks}" th:inline="text">
+                    <li>[[${talk.nowdate}]] <a th:href="@{/adminisratorDelete?(id=*{talk.id})}" class="btn btn-outline-dark mt-3">削除</a></li>
+                    <li>[[${talk.name}]]</li>
+                    <li>[[${talk.comment}]]</li>
+                </ul>
+            </div>
+        </div>
+    </div>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
-  </body>
+</body>
 </html>
